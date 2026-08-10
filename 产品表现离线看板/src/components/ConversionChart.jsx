@@ -47,9 +47,9 @@ const ConversionChart = memo(function ConversionChart({ data }) {
   }, [data]);
 
   useEffect(() => {
-    bindChartTooltip(containerRef.current, data, d =>
+    return bindChartTooltip(containerRef.current, data, d =>
       `<strong>${esc(d.label)}</strong>订单转化率：${fmtPct(d.orderCvr)}<br>销量转化率：${fmtPct(d.unitCvr)}<br>广告转化率：${fmtPct(d.adCvr)}<br>自然转化率：${fmtPct(d.naturalCvr)}<br>BD ASIN：${fmtNum(d.bdAsinCount)}`
-    );
+    ) || (() => {});
   }, [svg, data]);
 
   return (

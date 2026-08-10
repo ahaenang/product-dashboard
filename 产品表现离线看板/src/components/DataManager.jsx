@@ -33,28 +33,34 @@ export default function DataManager() {
   // 更新构建状态显示
   useEffect(() => {
     (async () => {
-      const data = await dbGet("dashboardData", "current");
-      const timeEl = document.getElementById("buildTimeText");
-      const statusEl = document.getElementById("buildStatusText");
-      if (timeEl) timeEl.textContent = data?.builtAt
-        ? `上次构建: ${new Date(data.builtAt).toLocaleString("zh-CN")}`
-        : "尚未构建";
-      if (statusEl) statusEl.textContent = data?.builtAt ? "已构建" : "就绪";
+      try {
+        const data = await dbGet("dashboardData", "current");
+        const timeEl = document.getElementById("buildTimeText");
+        const statusEl = document.getElementById("buildStatusText");
+        if (timeEl) timeEl.textContent = data?.builtAt
+          ? `上次构建: ${new Date(data.builtAt).toLocaleString("zh-CN")}`
+          : "尚未构建";
+        if (statusEl) statusEl.textContent = data?.builtAt ? "已构建" : "就绪";
+      } catch {}
     })();
-  });
+  }, [state.buildState]);
 
   const handleFile = useCallback(async (file, type) => {
     if (!file) return;
-    await dbPut("sourceFiles", {
-      id: FILE_IDS[type],
-      name: file.name,
-      blob: file,
-      updatedAt: new Date().toISOString(),
-    });
-    setFiles(prev => ({ ...prev, [type]: { name: file.name, blob: file } }));
+    try {
+      await dbPut("sourceFiles", {
+        id: FILE_IDS[type],
+        name: file.name,
+        blob: file,
+        updatedAt: new Date().toISOString(),
+      });
+      setFiles(prev => ({ ...prev, [type]: { name: file.name, size: file.size } }));
 
-    const [label] = FILE_LABELS[type];
-    dispatch({ type: "APPEND_BUILD_LOG", message: `✅ ${label} 已上传: ${file.name}` });
+      const [label] = FILE_LABELS[type];
+      dispatch({ type: "APPEND_BUILD_LOG", message: `✅ ${label} 已上传: ${file.name}` });
+    } catch (err) {
+      dispatch({ type: "APPEND_BUILD_LOG", message: `❌ 上传失败: ${err.message}` });
+    }
   }, [dispatch]);
 
   const handleDrop = useCallback(async (e, type) => {
@@ -114,6 +120,7 @@ export default function DataManager() {
     worker.onerror = (err) => {
       dispatch({ type: "APPEND_BUILD_LOG", message: `❌ Worker 错误: ${err.message}` });
       dispatch({ type: "SET_BUILD_STATE", buildState: "error" });
+      worker.terminate();
     };
 
     // 发送文件到 Worker
@@ -127,7 +134,7 @@ export default function DataManager() {
         productsName: productsFile.name,
         bdName: bdFile?.name || "",
       },
-    }, [sourceFile.blob, productsFile.blob, bdFile?.blob].filter(Boolean).map(b => b)); // 转移所有权
+    });
   }, [dispatch]);
 
   // 清理 worker
@@ -159,7 +166,7 @@ export default function DataManager() {
               <div className="data-card-icon">{icon}</div>
               <div className="data-card-title">{FILE_LABELS[type][0]}</div>
               <div className="data-card-status" id={statusMap[type]}>
-                {file ? `${file.name} (${file.blob ? formatFileSize(file.blob.size) : ""})` : type === "bd" ? "未上传（可选）" : "未上传"}
+                {file ? `${file.name} (${file.size ? formatFileSize(file.size) : ""})` : type === "bd" ? "未上传（可选）" : "未上传"}
               </div>
               <div className="data-card-actions">
                 <label className="upload-btn">

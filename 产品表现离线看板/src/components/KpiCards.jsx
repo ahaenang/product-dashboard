@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { fmtMoney, fmtNum, fmtPct } from '../utils/format';
 
 const KpiCards = memo(function KpiCards({ totals }) {
+  if (!totals) return null;
   const cards = [
     ["净销售额", fmtMoney(totals.netSales), `销售额 ${fmtMoney(totals.sales)}`],
     ["订单毛利润", fmtMoney(totals.profit), `毛利率 ${fmtPct(totals.margin)}`],

@@ -33,9 +33,9 @@ const OrderMixChart = memo(function OrderMixChart({ data }) {
   }, [data, state.granularity]);
 
   useEffect(() => {
-    bindChartTooltip(containerRef.current, data, d =>
+    return bindChartTooltip(containerRef.current, data, d =>
       `<strong>${esc(d.label)}</strong>广告订单：${fmtNum(d.adOrders)}（${fmtPct(d.adShare)}）<br>自然订单：${fmtNum(d.naturalOrders)}（${fmtPct(d.naturalShare)}）`
-    );
+    ) || (() => {});
   }, [svg, data]);
 
   return (
@@ -51,6 +51,7 @@ function bindChartTooltip(el, data, htmlFn) {
   if (!el) return;
   const tip = el.querySelector(".tooltip");
   if (!tip) return;
+  const handlers = [];
   el.querySelectorAll(".hit").forEach(hit => {
     const onEnter = () => { tip.innerHTML = htmlFn(data[+hit.dataset.i]); tip.style.display = "block"; };
     const onMove = (e) => {
@@ -62,7 +63,15 @@ function bindChartTooltip(el, data, htmlFn) {
     hit.addEventListener("mouseenter", onEnter);
     hit.addEventListener("mousemove", onMove);
     hit.addEventListener("mouseleave", onLeave);
+    handlers.push({ hit, onEnter, onMove, onLeave });
   });
+  return () => {
+    handlers.forEach(({ hit, onEnter, onMove, onLeave }) => {
+      hit.removeEventListener("mouseenter", onEnter);
+      hit.removeEventListener("mousemove", onMove);
+      hit.removeEventListener("mouseleave", onLeave);
+    });
+  };
 }
 
 export default OrderMixChart;

@@ -11,8 +11,8 @@ import DetailTable from './components/DetailTable';
 import ComparePage from './components/ComparePage';
 import DataManager from './components/DataManager';
 import { useFilteredRows, useTimeData, useTotal, useGroupedData, usePreviousGroups } from './store/DashboardContext';
-import { esc, safeDiv } from './utils/helpers';
-import { fmtNum, fmtPct, fmtMoney } from './utils/format';
+import { esc } from './utils/helpers';
+import { fmtNum } from './utils/format';
 
 function MetaBar() {
   const { state } = useDashboard();

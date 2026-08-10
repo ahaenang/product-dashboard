@@ -169,21 +169,13 @@ export function DashboardProvider({ children }) {
         if (saved?.payload) {
           dispatch({ type: "SET_DATA", payload: saved.payload });
         }
-        const files = await getAllFiles();
-        dispatch({ type: "SET_FILES_CACHE", payload: files });
       } catch (err) {
         console.error("加载 IndexedDB 数据失败:", err);
       }
     })();
   }, []);
 
-  // 扩展 state 以支持 files cache
-  const fullState = useMemo(() => ({
-    ...state,
-    filesCache: state.filesCache || [],
-  }), [state]);
-
-  const value = useMemo(() => ({ state: fullState, dispatch }), [fullState, dispatch]);
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   return (
     <DashboardContext.Provider value={value}>
@@ -305,10 +297,13 @@ function rowsInRange(from, to, rows, filters) {
   );
 }
 
+const EMPTY_PREV = { complete: false, map: new Map(), range: { from: "", to: "", days: 0 } };
+
 export function usePreviousGroups(filtered) {
   const { state } = useDashboard();
   const dim = state.rankDimension;
   return useMemo(() => {
+    if (!state.dateFrom || !state.dateTo || !state.meta?.minDate) return EMPTY_PREV;
     const prev = previousRange(state.dateFrom, state.dateTo);
     if (!rangeHasCompleteDates(prev.from, prev.to, state.meta, state.rows || [])) {
       return { complete: false, map: new Map(), range: prev };

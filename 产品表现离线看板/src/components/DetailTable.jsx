@@ -35,16 +35,18 @@ const DetailTable = memo(function DetailTable({ groups, prevInfo }) {
     return items.length ? items.join("\n") : "-";
   }, [dim, meta.bdScheduleByParent]);
 
-  // Attach note handlers after render
+  // Attach note handlers via event delegation (no leaks)
   useEffect(() => {
-    document.querySelectorAll("#tableBody .note-input").forEach(input => {
-      const handler = () => {
-        try { localStorage.setItem(noteStorageKey(input.dataset.parent), input.value); } catch {}
-      };
-      input.removeEventListener("input", handler);
-      input.addEventListener("input", handler);
-    });
-  });
+    const tableBody = document.getElementById("tableBody");
+    if (!tableBody) return;
+    const handler = (e) => {
+      const input = e.target.closest(".note-input");
+      if (!input) return;
+      try { localStorage.setItem(noteStorageKey(input.dataset.parent), input.value); } catch {}
+    };
+    tableBody.addEventListener("input", handler);
+    return () => tableBody.removeEventListener("input", handler);
+  }, [sortedData]);
 
   const headHTML = columns.map(c =>
     `<th data-key="${c[0]}">${c[1]}${c[2] !== "note" && sort.key === c[0] ? (sort.dir > 0 ? " ↑" : " ↓") : ""}</th>`
