@@ -1,0 +1,85 @@
+/* ============================================================
+   KPI 指标卡片
+   ============================================================ */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+.kpi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  background: linear-gradient(135deg, var(--primary-soft) 0%, transparent 60%);
+  transition: opacity var(--transition);
+}
+.kpi:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+.kpi:hover::before { opacity: 1; }
+
+.kpi-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+.kpi-note {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* primary KPI — first card stands out */
+.kpi:first-child {
+  border-color: var(--primary-light);
+  background: linear-gradient(135deg, var(--panel) 0%, var(--primary-soft) 100%);
+}
+.kpi:first-child .kpi-value { color: var(--primary); }
+
+/* trend chip inside kpi-note */
+.trend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.trend-chip.up { background: var(--green-soft); color: var(--green); }
+.trend-chip.down { background: var(--red-soft); color: var(--red); }
