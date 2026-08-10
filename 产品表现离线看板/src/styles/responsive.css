@@ -7,6 +7,8 @@
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .data-grid { grid-template-columns: 1fr; }
   .chart-grid, .chart-grid.equal { grid-template-columns: 1fr; }
+  /* 排名图表面板在小屏上限制高度 */
+  .bar-list { max-height: 420px; overflow-y: auto; }
 }
 
 @media (max-width: 820px) {
@@ -22,11 +24,67 @@
   .compare-grid { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .build-section { flex-direction: column; align-items: stretch; }
+
+  /* 图表面板撑满宽度 */
+  .chart-panel { padding: 14px; }
+  /* SVG 图表缩小高度 */
+  .chart { min-height: 240px; }
+  .chart svg { height: 240px; }
+
+  /* 排名面板 head 换行 */
+  .rank-controls {
+    grid-template-columns: 1fr;
+    min-width: 0;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  /* 订单结构图横滚 */
+  #orderMixChart { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #orderMixChart svg { min-width: 520px; }
+
+  /* 明细表格 */
+  .table-panel { padding: 12px; }
+  th, td { padding: 8px 6px; font-size: 12px; }
+  th:first-child, td:first-child { width: 140px; min-width: 140px; max-width: 140px; }
+  th:nth-child(2), td:nth-child(2) { width: 180px; min-width: 180px; max-width: 180px; left: 140px; }
 }
 
 @media (max-width: 480px) {
   .filter-grid { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: 1fr; }
-  .bar-row { grid-template-columns: 1fr auto; }
-  .bar-track { grid-column: 1 / -1; grid-row: 2; }
+
+  /* KPI 小屏 */
+  .kpi { padding: 12px 14px; }
+  .kpi-value { font-size: 22px; }
+
+  /* 图表进一步缩小 */
+  .chart { min-height: 200px; }
+  .chart svg { height: 200px; }
+
+  /* 排名柱状图：小屏上隐去 track，只保留排名+数值 */
+  .bar-row {
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .bar-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 8px;
+  }
+  .bar-label { font-size: 12px; }
+
+  /* 面板 head 堆叠 */
+  .panel-head {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* 图例换行 */
+  .legend { gap: 8px; font-size: 11px; }
+
+  /* 对比卡片 */
+  .compare-card { padding: 10px 12px; }
+  .compare-value strong { font-size: 16px; }
 }

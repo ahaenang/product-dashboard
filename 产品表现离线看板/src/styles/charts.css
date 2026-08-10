@@ -64,6 +64,13 @@
 .chart .zero { stroke: var(--muted-soft); stroke-width: 1; stroke-dasharray: 4 3; }
 .chart .hit { fill: transparent; cursor: crosshair; }
 
+/* 数据点多时图表可横滚 */
+.chart-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .tooltip {
   position: absolute;
   z-index: 30;

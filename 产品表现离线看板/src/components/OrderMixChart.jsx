@@ -10,7 +10,10 @@ const OrderMixChart = memo(function OrderMixChart({ data }) {
   const svg = useMemo(() => {
     if (!data.length) return '<div class="empty">当前筛选无数据</div>';
 
-    const W = 520, H = 310, m = { l: 48, r: 12, t: 12, b: 72 }, w = W - m.l - m.r, h = H - m.t - m.b;
+    // 数据点多时加宽 viewBox，保证每根柱子至少 8px
+    const barW = Math.max(8, Math.min(40, 520 * .55 / Math.max(data.length, 1)));
+    const chartW = Math.max(520, data.length * barW * 2 + 60);
+    const W = chartW, H = 310, m = { l: 48, r: 12, t: 12, b: 72 }, w = W - m.l - m.r, h = H - m.t - m.b;
     const max = niceMax(Math.max(...data.map(d => d.adOrders + d.naturalOrders), 1));
     const y = v => m.t + h - (v / max * h), group = w / data.length, bw = Math.min(40, group * .55);
 
@@ -39,7 +42,7 @@ const OrderMixChart = memo(function OrderMixChart({ data }) {
   }, [svg, data]);
 
   return (
-    <div className="chart" ref={containerRef} aria-label="订单来源结构图"
+    <div className="chart" id="orderMixChart" ref={containerRef} aria-label="订单来源结构图"
       dangerouslySetInnerHTML={{ __html: svg + '<div class="tooltip"></div>' }}
     />
   );
