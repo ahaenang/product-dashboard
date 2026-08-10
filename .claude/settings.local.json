@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m '新增：纯浏览器端产品表现离线看板 *)"
+    ]
+  }
+}

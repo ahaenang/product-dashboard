@@ -1,0 +1,83 @@
+/* ============================================================
+   数据明细表格（冻结列、排序、备注、BD tooltip）
+   ============================================================ */
+
+.table-panel { padding: 16px; }
+.table-wrap { overflow-x: auto; position: relative; }
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; }
+th, td {
+  padding: 10px 9px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+th:first-child, td:first-child {
+  text-align: left;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+th:nth-child(2), td:nth-child(2) {
+  text-align: left;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+}
+th:first-child, td:first-child,
+th:nth-child(2), td:nth-child(2) {
+  position: sticky;
+  background: var(--panel);
+  z-index: 6;
+}
+th:first-child, td:first-child { left: 0; }
+th:nth-child(2), td:nth-child(2) {
+  left: 220px;
+  box-shadow: 8px 0 12px rgba(22, 34, 55, .05);
+}
+th:first-child, th:nth-child(2) { z-index: 8; }
+th {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+th:hover { color: var(--primary); }
+tbody tr:hover { background: var(--panel-soft); }
+
+.cell-main { display: block; }
+.cell-compare {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.label-with-bd {
+  cursor: help;
+  text-decoration: underline dotted color-mix(in srgb, var(--muted) 65%, transparent);
+  text-underline-offset: 4px;
+}
+.note-cell { min-width: 260px; white-space: normal; }
+.note-input {
+  width: 100%;
+  min-height: 42px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel-soft);
+  color: var(--text);
+  padding: 7px 8px;
+  outline: none;
+  font-size: 12px;
+}
+.note-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+.negative { color: var(--red); }
+.positive { color: var(--green); }

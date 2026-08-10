@@ -1,0 +1,93 @@
+/* ============================================================
+   时间对比页
+   ============================================================ */
+
+.compare-panel { padding: 16px; margin-bottom: 16px; }
+.compare-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.compare-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.compare-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.compare-metrics label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  padding: 5px 7px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel-soft);
+}
+.compare-metrics input { accent-color: var(--primary); }
+.compare-actions { display: inline-flex; gap: 6px; margin-left: auto; }
+.compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.compare-card {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-soft);
+  min-width: 0;
+}
+.compare-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.compare-body {
+  display: grid;
+  grid-template-columns: minmax(170px, .85fr) minmax(220px, 1.15fr);
+  gap: 14px;
+  align-items: center;
+}
+.compare-values { display: grid; gap: 8px; }
+.compare-value { min-width: 0; }
+.compare-value span { display: block; color: var(--muted); font-size: 11px; margin-bottom: 2px; }
+.compare-value strong { display: block; overflow-wrap: anywhere; font-size: 18px; line-height: 1.25; }
+.compare-delta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  padding-top: 2px;
+  border-top: 1px dashed var(--border);
+}
+.compare-bars { display: grid; gap: 10px; }
+.compare-bar-row {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.compare-bar-track {
+  height: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.compare-bar-fill { height: 100%; width: var(--w, 0%); border-radius: 999px; }
+.compare-bar-fill.a { background: var(--primary); }
+.compare-bar-fill.b { background: var(--teal); }

@@ -1,0 +1,78 @@
+/* ============================================================
+   数据管理页面
+   ============================================================ */
+
+.data-page { padding: 16px; margin-bottom: 16px; }
+.data-page h2 { margin: 0 0 16px; font-size: 18px; }
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.data-card {
+  background: var(--panel-soft);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: border-color .2s, background .2s;
+}
+.data-card.has-file {
+  border-style: solid;
+  border-color: var(--green);
+  background: color-mix(in srgb, var(--green) 6%, var(--panel-soft));
+}
+.data-card-icon { font-size: 32px; margin-bottom: 8px; }
+.data-card-title { font-weight: 600; margin-bottom: 4px; }
+.data-card-status { color: var(--muted); font-size: 12px; margin-bottom: 12px; min-height: 18px; }
+.data-card-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  padding: 8px 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s;
+}
+.upload-btn:hover { background: color-mix(in srgb, var(--primary) 18%, var(--panel-soft)); }
+.upload-btn input { display: none; }
+
+.data-card.drag-over {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.build-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.build-info { flex: 1; min-width: 0; }
+.build-info strong { display: block; margin-bottom: 4px; }
+.build-info span { color: var(--muted); font-size: 12px; }
+
+.build-log {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+}

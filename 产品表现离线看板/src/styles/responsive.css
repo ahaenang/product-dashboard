@@ -1,0 +1,32 @@
+/* ============================================================
+   响应式布局
+   ============================================================ */
+
+@media (max-width: 1200px) {
+  .filter-grid { grid-template-columns: repeat(3, 1fr); }
+  .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+  .data-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .app { padding: 14px; }
+  .hero { align-items: flex-start; flex-direction: column; }
+  .meta { text-align: left; white-space: normal; }
+  .page-tabs { display: flex; }
+  .page-tabs button { flex: 1; padding-left: 10px; padding-right: 10px; }
+  .filter-grid { grid-template-columns: repeat(2, 1fr); }
+  .compare-head { flex-direction: column; }
+  .compare-controls { grid-template-columns: repeat(2, 1fr); }
+  .compare-body { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .chart-grid, .chart-grid.equal { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .build-section { flex-direction: column; align-items: stretch; }
+}
+
+@media (max-width: 480px) {
+  .filter-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .bar-row { grid-template-columns: 1fr auto; }
+  .bar-track { grid-column: 1 / -1; grid-row: 2; }
+}

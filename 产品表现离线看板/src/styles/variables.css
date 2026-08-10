@@ -1,0 +1,57 @@
+/* ============================================================
+   CSS 变量、重置、基础
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --panel-soft: #f8fafc;
+  --text: #172033;
+  --muted: #687386;
+  --border: #dfe5ef;
+  --grid: #e9edf4;
+  --primary: #2563eb;
+  --primary-soft: #e8f0ff;
+  --teal: #0f9f8f;
+  --amber: #d89018;
+  --purple: #7c5ce5;
+  --red: #d54949;
+  --green: #198754;
+  --shadow: 0 8px 24px rgba(22, 34, 55, .07);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0f1420;
+    --panel: #171e2c;
+    --panel-soft: #1d2637;
+    --text: #eef3fb;
+    --muted: #a9b4c7;
+    --border: #303a4d;
+    --grid: #2b3445;
+    --primary: #79a6ff;
+    --primary-soft: #1c3159;
+    --teal: #53cabb;
+    --amber: #f0b959;
+    --purple: #a992ff;
+    --red: #ff7a7a;
+    --green: #54c98b;
+    --shadow: none;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--primary); }
