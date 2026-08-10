@@ -1,0 +1,15 @@
+# 用户数据源（隐私/体积大）
+数据源/*.xlsx
+数据源/*.xls
+
+# 构建输出
+outputs/*.html
+
+# Python 运行时
+runtime/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+~$*.xlsx
+~$*.xls

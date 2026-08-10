@@ -1,0 +1,48 @@
+{
+  "output": "C:\\Users\\Administrator\\Desktop\\Codex\\数据监控-产品表现\\outputs\\产品表现离线看板.html",
+  "bytes": 8505237,
+  "sourceRows": 55632,
+  "mappedRows": 18239,
+  "mappedAsins": 231,
+  "dateRange": [
+    "2026-06-01",
+    "2026-07-31"
+  ],
+  "options": {
+    "store": 3,
+    "country": 1,
+    "stage": 3,
+    "series": 7,
+    "parent": 23
+  },
+  "bd": {
+    "bdFile": "BD活动表.xlsx",
+    "intervals": 134,
+    "overlapIntervals": 32,
+    "matchedIntervals": 32,
+    "matchedParents": 20,
+    "bdRows": 5485
+  },
+  "auditCounts": {
+    "sourceOnlyAsins": 613,
+    "mappingOnlyAsins": 0,
+    "duplicateMappingAsins": 0,
+    "bdParentsWithoutProduct": 0,
+    "productParentsWithoutBd": 2
+  },
+  "totals": {
+    "units": 656919.0,
+    "orders": 537527.0,
+    "netSales": 6626224.13,
+    "profit": 162565.53,
+    "spend": 705833.12,
+    "adSales": 2352782.43,
+    "sessions": 1282329.0,
+    "adOrders": 216505.0,
+    "naturalOrders": 321022.0,
+    "returns": 6439.0,
+    "tacos": 0.10652117,
+    "margin": 0.02453366,
+    "orderCvr": 0.41918026
+  }
+}
