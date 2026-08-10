@@ -1,31 +1,32 @@
 /* ============================================================
-   数据明细表格（冻结列、排序、备注、BD tooltip）
+   数据明细表格（冻结列、排序、备注、BD tooltip、交替行色）
    ============================================================ */
 
-.table-panel { padding: 16px; }
+.table-panel { padding: 18px; }
 .table-wrap { overflow-x: auto; position: relative; }
 
-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
 th, td {
-  padding: 10px 9px;
-  border-bottom: 1px solid var(--border);
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--border-light);
   text-align: right;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
+
+/* 交替行色 */
+tbody tr:nth-child(even) { background: var(--panel-soft); }
+tbody tr:hover { background: var(--primary-soft) !important; }
+
+/* 冻结列 */
 th:first-child, td:first-child {
   text-align: left;
-  width: 220px;
-  min-width: 220px;
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 200px; min-width: 200px; max-width: 200px;
+  overflow: hidden; text-overflow: ellipsis;
 }
 th:nth-child(2), td:nth-child(2) {
   text-align: left;
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
+  width: 240px; min-width: 240px; max-width: 240px;
 }
 th:first-child, td:first-child,
 th:nth-child(2), td:nth-child(2) {
@@ -33,51 +34,61 @@ th:nth-child(2), td:nth-child(2) {
   background: var(--panel);
   z-index: 6;
 }
+/* 交替行在冻结列也要跟背景 */
+tbody tr:nth-child(even) td:first-child,
+tbody tr:nth-child(even) td:nth-child(2) { background: var(--panel-soft); }
+tbody tr:hover td:first-child,
+tbody tr:hover td:nth-child(2) { background: var(--primary-soft) !important; }
+
 th:first-child, td:first-child { left: 0; }
 th:nth-child(2), td:nth-child(2) {
-  left: 220px;
-  box-shadow: 8px 0 12px rgba(22, 34, 55, .05);
+  left: 200px;
+  box-shadow: 6px 0 10px rgba(0,0,0,.03);
 }
 th:first-child, th:nth-child(2) { z-index: 8; }
 th {
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .03em;
   cursor: pointer;
   user-select: none;
+  padding: 12px 10px;
+  border-bottom: 2px solid var(--border);
 }
 th:hover { color: var(--primary); }
-tbody tr:hover { background: var(--panel-soft); }
 
-.cell-main { display: block; }
+.cell-main { display: block; font-weight: 500; }
 .cell-compare {
   display: block;
-  margin-top: 5px;
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 11px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 .label-with-bd {
   cursor: help;
-  text-decoration: underline dotted color-mix(in srgb, var(--muted) 65%, transparent);
+  text-decoration: underline dotted color-mix(in srgb, var(--muted) 50%, transparent);
   text-underline-offset: 4px;
 }
-.note-cell { min-width: 260px; white-space: normal; }
+.note-cell { min-width: 240px; white-space: normal; }
 .note-input {
   width: 100%;
-  min-height: 42px;
+  min-height: 40px;
   resize: vertical;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--panel-soft);
   color: var(--text);
-  padding: 7px 8px;
+  padding: 6px 8px;
   outline: none;
   font-size: 12px;
+  transition: all var(--transition);
 }
 .note-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
 }
-.negative { color: var(--red); }
+.negative { color: var(--red); font-weight: 600; }
 .positive { color: var(--green); }

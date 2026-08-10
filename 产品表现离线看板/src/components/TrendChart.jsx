@@ -22,7 +22,14 @@ const TrendChart = memo(function TrendChart({ data }) {
     const y0 = y(0);
     const x = i => data.length === 1 ? m.l + w / 2 : m.l + i * w / (data.length - 1);
 
-    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img"><title>销售、利润与广告投入趋势</title>`;
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img"><title>销售、利润与广告投入趋势</title><defs>`;
+
+    // Gradient definitions for area fills
+    active.forEach(k => {
+      const c = trendMetrics[k].color;
+      svg += `<linearGradient id="grad-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c}" stop-opacity=".18"/><stop offset="100%" stop-color="${c}" stop-opacity="0"/></linearGradient>`;
+    });
+    svg += "</defs>";
 
     for (let i = 0; i <= 4; i++) {
       const v = min + span * i / 4, yy = y(v);
@@ -35,15 +42,22 @@ const TrendChart = memo(function TrendChart({ data }) {
       if (d.bdAsinCount > 0) {
         const left = data.length === 1 ? m.l : (i ? ((x(i - 1) + x(i)) / 2) : m.l);
         const right = data.length === 1 ? W - m.r : (i === data.length - 1 ? W - m.r : (x(i) + x(i + 1)) / 2);
-        svg += `<rect x="${left}" y="${m.t}" width="${right - left}" height="${h}" fill="var(--red)" opacity=".08"/><line x1="${left + 4}" y1="${bdY}" x2="${right - 4}" y2="${bdY}" stroke="var(--red)" stroke-width="3" stroke-linecap="round"/>`;
+        svg += `<rect x="${left}" y="${m.t}" width="${right - left}" height="${h}" fill="var(--red)" opacity=".06" rx="4"/>`;
       }
     });
 
     active.forEach(k => {
       const metric = trendMetrics[k];
       const pts = data.map((d, i) => `${x(i)},${y(d[k] || 0)}`).join(" ");
-      svg += `<polyline fill="none" stroke="${metric.color}" stroke-width="2.5" points="${pts}"/>`;
-      data.forEach((d, i) => svg += `<circle cx="${x(i)}" cy="${y(d[k] || 0)}" r="3" fill="${metric.color}"/>`);
+
+      // Gradient area fill under line
+      if (data.length > 1) {
+        const areaPts = pts + ` ${x(data.length - 1)},${y0} ${x(0)},${y0}`;
+        svg += `<polygon fill="url(#grad-${k})" points="${areaPts}"/>`;
+      }
+
+      svg += `<polyline fill="none" stroke="${metric.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="${pts}"/>`;
+      data.forEach((d, i) => svg += `<circle cx="${x(i)}" cy="${y(d[k] || 0)}" r="4" fill="${metric.color}" stroke="#fff" stroke-width="1.5"/>`);
     });
 
     data.forEach((d, i) => {

@@ -3,6 +3,7 @@
    在 Web Worker 中运行，不依赖 DOM/IndexedDB
    ============================================================ */
 
+import * as XLSX from 'xlsx';
 import { cleanText, cleanDate, norm, parseNumber } from '../utils/helpers.js';
 
 /** 找表头行：匹配 required_aliases 的任意一组 */
