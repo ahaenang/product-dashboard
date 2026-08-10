@@ -62,17 +62,20 @@
   .chart { min-height: 200px; }
   .chart svg { height: 200px; }
 
-  /* 排名柱状图：小屏上隐去 track，只保留排名+数值 */
+  /* 排名柱状图：小屏上标签+数值同行，进度条另起一行 */
   .bar-row {
     grid-template-columns: 1fr auto;
-    gap: 8px;
+    gap: 6px;
     font-size: 13px;
   }
+  .bar-label { max-width: none; }
   .bar-track {
     grid-column: 1 / -1;
     grid-row: 2;
     height: 8px;
+    min-width: 0;
   }
+  .bar-value { min-width: 0; }
   .bar-label { font-size: 12px; }
 
   /* 面板 head 堆叠 */
