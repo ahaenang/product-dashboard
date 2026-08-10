@@ -9,6 +9,9 @@
 # Python 运行时
 runtime/
 
+# 本地保留、不上传的旧版本
+产品表现看板通用版(1)/
+
 # Node.js
 node_modules/
 
